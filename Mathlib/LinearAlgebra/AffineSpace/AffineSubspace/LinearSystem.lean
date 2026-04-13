@@ -8,10 +8,6 @@ public import Mathlib.Analysis.InnerProductSpace.PiL2
 
 open Module Submodule Matrix
 
-noncomputable def xAxis : AffineSubspace ℝ (EuclideanSpace ℝ (Fin 2)) where
-  carrier := {p | p 1 = 0}
-  smul_vsub_vadd_mem c p₁ p₂ p₃ hp₁ hp₂ hp₃ := by simp_all
-
 def AffineSubspace.ofLinearSystem {K V : Type*} [Ring K] [AddCommGroup V] [Module K V]
     (n m : ℕ) (ι : Basis (Fin n) K V) (A : Matrix (Fin n) (Fin m) K) (b : Fin m → K) :
     AffineSubspace K V where
