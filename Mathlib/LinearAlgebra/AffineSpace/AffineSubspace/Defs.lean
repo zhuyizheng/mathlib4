@@ -8,6 +8,7 @@ module
 public import Mathlib.Order.Atoms
 public import Mathlib.LinearAlgebra.Span.Defs
 public import Mathlib.LinearAlgebra.AffineSpace.Defs
+public import Mathlib.LinearAlgebra.Matrix.Rank
 
 /-!
 # Affine spaces
@@ -1076,3 +1077,7 @@ lemma affineSpan_insert_zero (s : Set V) :
   exact subset_sub_left <| mem_insert ..
 
 end AffineSpace'
+
+
+def AffineSpace.finrank (k : Type*) {V : Type*} (P : Type*) [Ring k] [AddCommGroup V]
+  [Module k V] [AffineSpace V P] (s : AffineSubspace k P) := Module.finrank k s.direction

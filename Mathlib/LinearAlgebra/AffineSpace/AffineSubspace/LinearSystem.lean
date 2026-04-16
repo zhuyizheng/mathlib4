@@ -5,11 +5,12 @@ public import Mathlib.LinearAlgebra.Basis.VectorSpace
 public import Mathlib.LinearAlgebra.Dimension.Free
 public import Mathlib.RingTheory.SimpleRing.Basic
 public import Mathlib.Analysis.InnerProductSpace.PiL2
+public import Mathlib.LinearAlgebra.Matrix.Rank
 
 open Module Submodule Matrix
 
 def AffineSubspace.ofLinearSystem {K V : Type*} [Ring K] [AddCommGroup V] [Module K V]
-    (n m : ℕ) (ι : Basis (Fin n) K V) (A : Matrix (Fin n) (Fin m) K) (b : Fin m → K) :
+    {n m : ℕ} (ι : Basis (Fin n) K V) (A : Matrix (Fin n) (Fin m) K) (b : Fin m → K) :
     AffineSubspace K V where
   carrier := {x | (ι.repr x) ᵥ* A = b}
   smul_vsub_vadd_mem := fun c p₁ p₂ p₃ hp₁ hp₂ hp₃ ↦ by
@@ -20,3 +21,10 @@ def AffineSubspace.ofLinearSystem {K V : Type*} [Ring K] [AddCommGroup V] [Modul
         add_vecMul, smul_vecMul, sub_vecMul,
         hp₁, hp₂, hp₃]
     simp
+
+
+lemma AffineSubspace.ofLinearSystem_rank {K V : Type*} [CommRing K] [AddCommGroup V] [Module K V]
+    (n m : ℕ) (ι : Basis (Fin n) K V) (A : Matrix (Fin n) (Fin m) K) (b : Fin m → K)
+    (h : Matrix.rank A = m) :
+    (AffineSubspace.ofLinearSystem ι A b).finrank K = n - m := by
+  sorry
